@@ -7,9 +7,10 @@ module.exports =
     async listagem(request, response)
     {
         const {page = 1} = request.query
+        console.log(request.query)
         const [count] = await connection('empresas').count()
-
-        const empresas = await connection('empresas').limit(5).offset((page - 1) * 5).select('*');
+        
+        const empresas = await connection('empresas').limit(6).offset((page - 1) * 5).select('*');
         
         response.header('totalEmpresas', count['count(*)'])
         return response.json(empresas)
@@ -21,7 +22,7 @@ module.exports =
         //Destruturação do JSON por variavel
         const { cnpj, senha, name, tipo_empresa, endereco, bairro, numero, city, uf, email, telefone, horario, descricao } = request.body
        
-        if ( cnpj === '' || senha === '' || tipo_empresa === '' || endereco === '' || bairro==='' || numero==='' || city === '' || uf === '' || email === '' || telefone === '' || horario === '' || descricao === '')
+        if ( cnpj === '' || senha === '' || tipo_empresa === '' || endereco === '' ||  city === '' || uf === '' || email === '' || telefone === '' || horario === '' || descricao === '')
         {
             return response.json({error: 'Preencha todos os campos'})
         }

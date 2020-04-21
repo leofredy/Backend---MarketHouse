@@ -9,8 +9,10 @@ module.exports =
         const empresa = await connection('empresas').where('cnpj', cnpj).where('senha', senha).select('*').first()
 
         //Se a empresa nao existir no banco de dados
+        console.log(!empresa)
         if(!empresa)
         {
+            console.log('entrou')
             return response.json('Usuário ou senha inválida!!')
         }
 
